@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Popup_2</title>
+</head>
+<body>
+  <h1>Popup_2</h1>
+    <button type="button" id="btnSend">메인으로 데이터 보내기</button>
+    <p id="message"></p>
+  <script>
+    window.onload = () => {
+      const examplePopup = windowSync.popup({ key: 'popup_2' });
+      examplePopup.onReceive((data) =>
+        document.querySelector('#message').innerHTML = JSON.stringify(data));
+      document.querySelector('#btnSend').addEventListener('click', () =>
+        examplePopup.send({ message: "팝업 브라우저 2", timestamp: +new Date() }))
+    }
+  </script>
+</body>
+
+</html>
