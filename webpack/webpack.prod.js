@@ -13,7 +13,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, prodPath),
-    filename: 'window-sync.js',
+    filename: 'window-sync.min.js',
   },
   module: {
     rules: [

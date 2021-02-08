@@ -1,92 +1,100 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>window-sync</title>
-  <style>
-    h2 {
-      margin: 0 10px 0 0;
-    }
-    .button_wrap {
-      margin: 10px 0;
-    }
-    button {
-      margin-right: 5px;
-    }
-    .message {
-      min-height: 30px;
-    }
-  </style>
-</head>
-<body>
-  <h1>window-sync</h1>
-  <hr/>
-  <section>
-    <h2>Popup_1</h2>
-    <div class="button_wrap">
-      <button type="button" id="btnOpen1">열기</button>
-      <button type="button" id="btnClose1">닫기</button>
-      <button type="button" id="btnSendPopup1">팝업으로 데이터 보내기</button>
-    </div>
-    <p class="message" id="popupMessage1"></p>
-  </section>
-  <hr/>
-  <h2>Popup_2</h2>
-  <section>
-    <div class="button_wrap">
-      <button type="button" id="btnOpen2">열기</button>
-      <button type="button" id="btnClose2">닫기</button>
-      <button type="button" id="btnSendPopup2">팝업으로 데이터 보내기</button>
-    </div>
-    <p class="message" id="popupMessage2"></p>
-  </section>
-  <hr/>
-  <script>
-    const $ = _ => document.querySelector(_);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>window-sync</title>
+    <style>
+      h2 {
+        margin: 0 10px 0 0;
+      }
+      .button_wrap {
+        margin: 10px 0;
+      }
+      button {
+        margin-right: 5px;
+      }
+      .message {
+        min-height: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>window-sync</h1>
+    <hr />
+    <main>
+      <section>
+        <h2>Popup_1</h2>
+        <div class="button_wrap">
+          <button type="button" id="btnOpen1">열기</button>
+          <button type="button" id="btnClose1">닫기</button>
+          <button type="button" id="btnSendPopup1">팝업으로 데이터 보내기</button>
+        </div>
+        <p class="message" id="popupMessage1"></p>
+      </section>
+      <hr />
+      <h2>Popup_2</h2>
+      <section>
+        <div class="button_wrap">
+          <button type="button" id="btnOpen2">열기</button>
+          <button type="button" id="btnClose2">닫기</button>
+          <button type="button" id="btnSendPopup2">팝업으로 데이터 보내기</button>
+        </div>
+        <p class="message" id="popupMessage2"></p>
+      </section>
+      <hr />
+    </main>
+    <script>
+      const $ = (_) => document.querySelector(_);
 
-    window.onload = () => {
-      const exampleOpener1 = windowSync.opener({
-        key: 'popup_1',
-        url: './example/popup_1.html',
-        options: {
-          top: 100,
-          left: 10,
-          width: 400,
-          height: 400,
-          autoFocus: true,
-        }
-      });
+      window.onload = () => {
+        const exampleOpener1 = windowSync.opener({
+          key: 'popup_1',
+          url: './example/popup_1.html',
+          options: {
+            top: 100,
+            left: 10,
+            width: 400,
+            height: 400,
+            autoFocus: true,
+          },
+        });
 
-      const exampleOpener2 = windowSync.opener({
-        key: 'popup_2',
-        url: './example/popup_2.html',
-        options: {
-          top: 570,
-          left: 10,
-          width: 300,
-          height: 300,
-          autoFocus: true,
-        }
-      });
+        const exampleOpener2 = windowSync.opener({
+          key: 'popup_2',
+          url: './example/popup_2.html',
+          options: {
+            top: 570,
+            left: 10,
+            width: 300,
+            height: 300,
+            autoFocus: true,
+          },
+        });
 
-      exampleOpener1.onReceive((data) => $('#popupMessage1').innerHTML = JSON.stringify(data));
-      exampleOpener1.onClose((key) => $('#popupMessage1').innerHTML = `${key} 닫힘`);
-      $('#btnOpen1').addEventListener('click', () => exampleOpener1.open());
-      $('#btnClose1').addEventListener('click', () => exampleOpener1.close());
-      $('#btnSendPopup1').addEventListener('click', () =>
-        exampleOpener1.send({ message: "메인 브라우저", timestamp: +new Date() }));
+        exampleOpener1.onReceive((data) => ($('#popupMessage1').innerHTML = JSON.stringify(data)));
+        exampleOpener1.onClose((key) => ($('#popupMessage1').innerHTML = `${key} 닫힘`));
+        $('#btnOpen1').addEventListener('click', () => {
+          exampleOpener1.open();
+          $('#popupMessage1').innerHTML = '';
+        });
+        $('#btnClose1').addEventListener('click', () => exampleOpener1.close());
+        $('#btnSendPopup1').addEventListener('click', () =>
+          exampleOpener1.send({ message: '메인 브라우저', timestamp: +new Date() })
+        );
 
-      exampleOpener2.onReceive((data) => $('#popupMessage2').innerHTML = JSON.stringify(data));
-      exampleOpener2.onClose((key) => $('#popupMessage2').innerHTML = `${key} 닫힘`);
-      $('#btnOpen2').addEventListener('click', () => exampleOpener2.open());
-      $('#btnClose2').addEventListener('click', () => exampleOpener2.close());
-      $('#btnSendPopup2').addEventListener('click', () =>
-        exampleOpener2.send({ message: "메인 브라우저", timestamp: +new Date() }));
-
-    };
-  </script>
-</body>
-
+        exampleOpener2.onReceive((data) => ($('#popupMessage2').innerHTML = JSON.stringify(data)));
+        exampleOpener2.onClose((key) => ($('#popupMessage2').innerHTML = `${key} 닫힘`));
+        $('#btnOpen2').addEventListener('click', () => {
+          exampleOpener2.open();
+          $('#popupMessage2').innerHTML = '';
+        });
+        $('#btnClose2').addEventListener('click', () => exampleOpener2.close());
+        $('#btnSendPopup2').addEventListener('click', () =>
+          exampleOpener2.send({ message: '메인 브라우저', timestamp: +new Date() })
+        );
+      };
+    </script>
+  </body>
 </html>
