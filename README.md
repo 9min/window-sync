@@ -3,7 +3,7 @@
 ## 스크립트 파일 추가
 
 ```html
-<script src="window-sync.js"></script>
+<script src="dist/window-sync.min.js"></script>
 ```
 
 ## 메인 브라우저
