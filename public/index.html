@@ -51,16 +51,16 @@
       window.onload = () => {
         const openerMap = {
           opener1: windowSync.opener({
-          key: 'popup_1',
-          url: './example/popup_1.html',
-          options: {
-            top: 100,
-            left: 10,
-            width: 400,
-            height: 400,
-            autoFocus: true,
-          }
-        }),
+            key: 'popup_1',
+            url: './example/popup_1.html',
+            options: {
+              top: 100,
+              left: 10,
+              width: 400,
+              height: 400,
+              autoFocus: true,
+            },
+          }),
           opener2: windowSync.opener({
             key: 'popup_2',
             url: './example/popup_2.html',
@@ -77,8 +77,8 @@
         for (let i = 1; i <= 2; i += 1) {
           const opener = openerMap[`opener${i}`];
           const $message = $(`#popupMessage${i}`);
-          opener.onReceive((data) => $message.innerHTML = JSON.stringify(data));
-          opener.onClose((key) => $message.innerHTML = `"${key} 닫힘"`);
+          opener.onReceive((data) => ($message.innerHTML = JSON.stringify(data)));
+          opener.onClose((key) => ($message.innerHTML = `"${key} 닫힘"`));
           $(`#btnOpen${i}`).addEventListener('click', () => opener.open());
           $(`#btnClose${i}`).addEventListener('click', () => opener.close());
           $(`#btnSendPopup${i}`).addEventListener('click', () =>
