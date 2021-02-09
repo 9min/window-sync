@@ -52,12 +52,12 @@ module.exports = {
       filename: 'index.html',
     }),
     new HtmlWebpackPlugin({
-      template: 'public/example/popup_1.html',
-      filename: 'example/popup_1.html',
+      template: 'public/popups/popup_1.html',
+      filename: 'popups/popup_1.html',
     }),
     new HtmlWebpackPlugin({
-      template: 'public/example/popup_2.html',
-      filename: 'example/popup_2.html',
+      template: 'public/popups/popup_2.html',
+      filename: 'popups/popup_2.html',
     }),
   ],
 };
