@@ -37,19 +37,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      template: 'public/index.html',
-      filename: 'index.html',
-    }),
-    new HtmlWebpackPlugin({
-      template: 'public/example/popup_1.html',
-      filename: 'example/popup_1.html',
-    }),
-    new HtmlWebpackPlugin({
-      template: 'public/example/popup_2.html',
-      filename: 'example/popup_2.html',
-    }),
-  ],
+  plugins: [new CleanWebpackPlugin()],
 };
