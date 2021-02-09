@@ -4,19 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Popup_1</title>
+  <title>popup_1</title>
 </head>
 <body>
-  <h1>Popup_1</h1>
+  <h1>popup_1</h1>
     <button type="button" id="btnSend">메인으로 데이터 보내기</button>
     <p id="message"></p>
   <script>
     window.onload = () => {
-      const examplePopup = windowSync.popup({ key: 'popup_1' });
+      const key = 'popup_1';
+      const examplePopup = windowSync.popup({ key });
+      examplePopup.send(`${key} 열림`);
       examplePopup.onReceive((data) =>
         document.querySelector('#message').innerHTML = JSON.stringify(data));
       document.querySelector('#btnSend').addEventListener('click', () =>
-        examplePopup.send({ message: "팝업 브라우저 1", timestamp: +new Date() }))
+        examplePopup.send({ message: `${key} 메시지`, timestamp: +new Date() }))
     }
   </script>
 </body>

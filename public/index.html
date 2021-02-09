@@ -25,7 +25,7 @@
     <hr />
     <main>
       <section>
-        <h2>Popup_1</h2>
+        <h2>popup_1</h2>
         <div class="button_wrap">
           <button type="button" id="btnOpen1">열기</button>
           <button type="button" id="btnClose1">닫기</button>
@@ -34,7 +34,7 @@
         <p class="message" id="popupMessage1"></p>
       </section>
       <hr />
-      <h2>Popup_2</h2>
+      <h2>popup_2</h2>
       <section>
         <div class="button_wrap">
           <button type="button" id="btnOpen2">열기</button>
@@ -49,7 +49,8 @@
       const $ = (_) => document.querySelector(_);
 
       window.onload = () => {
-        const exampleOpener1 = windowSync.opener({
+        const openerMap = {
+          opener1: windowSync.opener({
           key: 'popup_1',
           url: './example/popup_1.html',
           options: {
@@ -58,42 +59,32 @@
             width: 400,
             height: 400,
             autoFocus: true,
-          },
-        });
+          }
+        }),
+          opener2: windowSync.opener({
+            key: 'popup_2',
+            url: './example/popup_2.html',
+            options: {
+              top: 570,
+              left: 10,
+              width: 300,
+              height: 300,
+              autoFocus: true,
+            },
+          }),
+        };
 
-        const exampleOpener2 = windowSync.opener({
-          key: 'popup_2',
-          url: './example/popup_2.html',
-          options: {
-            top: 570,
-            left: 10,
-            width: 300,
-            height: 300,
-            autoFocus: true,
-          },
-        });
-
-        exampleOpener1.onReceive((data) => ($('#popupMessage1').innerHTML = JSON.stringify(data)));
-        exampleOpener1.onClose((key) => ($('#popupMessage1').innerHTML = `${key} 닫힘`));
-        $('#btnOpen1').addEventListener('click', () => {
-          exampleOpener1.open();
-          $('#popupMessage1').innerHTML = '';
-        });
-        $('#btnClose1').addEventListener('click', () => exampleOpener1.close());
-        $('#btnSendPopup1').addEventListener('click', () =>
-          exampleOpener1.send({ message: '메인 브라우저', timestamp: +new Date() })
-        );
-
-        exampleOpener2.onReceive((data) => ($('#popupMessage2').innerHTML = JSON.stringify(data)));
-        exampleOpener2.onClose((key) => ($('#popupMessage2').innerHTML = `${key} 닫힘`));
-        $('#btnOpen2').addEventListener('click', () => {
-          exampleOpener2.open();
-          $('#popupMessage2').innerHTML = '';
-        });
-        $('#btnClose2').addEventListener('click', () => exampleOpener2.close());
-        $('#btnSendPopup2').addEventListener('click', () =>
-          exampleOpener2.send({ message: '메인 브라우저', timestamp: +new Date() })
-        );
+        for (let i = 1; i <= 2; i += 1) {
+          const opener = openerMap[`opener${i}`];
+          const $message = $(`#popupMessage${i}`);
+          opener.onReceive((data) => $message.innerHTML = JSON.stringify(data));
+          opener.onClose((key) => $message.innerHTML = `"${key} 닫힘"`);
+          $(`#btnOpen${i}`).addEventListener('click', () => opener.open());
+          $(`#btnClose${i}`).addEventListener('click', () => opener.close());
+          $(`#btnSendPopup${i}`).addEventListener('click', () =>
+            opener.send({ message: '메인 메시지', timestamp: +new Date() })
+          );
+        }
       };
     </script>
   </body>
