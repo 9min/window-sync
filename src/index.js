@@ -1,7 +1,7 @@
 import Opener from './opener';
 import Popup from './popup';
 
-const windowSync = {
+export const windowSync = {
   opener: (props) => {
     const newOpener = new Opener(props);
     return newOpener.getWrapper(props.key);
@@ -11,7 +11,5 @@ const windowSync = {
     return newPopup.getWrapper();
   },
 };
-
-window.windowSync = windowSync;
 
 export default windowSync;

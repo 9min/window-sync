@@ -1,5 +1,4 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { srcPath, prodPath } = require('./path');
 
@@ -14,6 +13,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, prodPath),
     filename: 'window-sync.min.js',
+    library: 'windowSync',
+    libraryTarget: 'umd',
   },
   module: {
     rules: [
@@ -23,17 +24,6 @@ module.exports = {
         use: {
           loader: 'babel-loader',
         },
-      },
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-            options: {
-              minimize: true,
-            },
-          },
-        ],
       },
     ],
   },
