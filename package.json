@@ -1,7 +1,7 @@
 {
   "name": "window-sync",
   "version": "0.0.1",
-  "description": "Synchronization between iframe/window",
+  "description": "Synchronization between window/popup",
   "main": "dist/window-sync.min.js",
   "scripts": {
     "lint": "npx eslint src/**/*",
